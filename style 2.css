@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600");
+
+:root {
+    --body-color : rgba(250,250,250);
+    --color-white : rgba(250,250,250);
+    --text-color-second : rgba(33,33,33);
+    --first-color : rgba(168,212,237);
+    --first-shadow: #F0F0F0;
+
+    --box-color : #fff;
+    --nav-color : #fff;
+    --nav-icon : #212121;
+    --logo-color : #212121;
+
+    --text-color : #212121;
+
+    --icon-color : #212121;
+    --mode-color : #ccc;
+}
+
+body {
+    background: var(--body-color);
+}
+
+/* Style pour le bouton "Retour" */
+.back-button {
+    background: none;
+    border: none;
+    color: var(--nav-icon);
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 20px;
+    font-family: "Poppins", sans-serif;
+    transition: color 0.3s;
+}
+
+.back-button:hover {
+    color: var(--first-color);
+}
+
+/* Modification de la largeur du header pour inclure le bouton retour */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 40px); /* Ajuste pour inclure le bouton */
+}
+
+/* Style pour le titre central */
+.main-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 40px 0;
+    color: #102E5B;
+    font-family: "Poppins", sans-serif;
+}
+
+/*Defilement photos*/
+
+/* Conteneur principal du carrousel */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Boutons de navigation gauche et droite */
+.carousel-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border-radius: 50%;
+    font-size: 24px;
+}
+
+.left-btn {
+    left: 5px;
+    cursor: pointer;
+}
+
+.right-btn {
+    right: 5px;
+    cursor: pointer;
+
+}
+
+/* Conteneur des images */
+.screenshots-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 50px; /* Espace entre les images */
+}
+
+/* Style pour chaque capture d'écran */
+.screenshot {
+    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
