@@ -1,34 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const sections = document.querySelectorAll(".section[id]");
-    const navLinks = document.querySelectorAll(".nav-link");
+    let sections = document.querySelectorAll('section'); // Sélectionne toutes les sections
+    let navLinks = document.querySelectorAll('.nav-link'); // Sélectionne tous les liens de navigation
 
-    function scrollActive() {
-        const scrollY = window.scrollY + 50; // Ajustement si nécessaire
+    let currentSection = '';
 
-        sections.forEach((current) => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 50; // Ajustez la valeur de décalage si nécessaire
-            const sectionId = current.getAttribute("id");
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
 
-            // Si la section est visible dans la fenêtre d'affichage
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                // Ajouter la classe 'active-link' au lien correspondant
-                document.querySelector(".nav-menu a[href*=" + sectionId + "]")?.classList.add("active-link");
-            } else {
-                // Supprimer la classe 'active-link' pour les liens non actifs
-                document.querySelector(".nav-menu a[href*=" + sectionId + "]")?.classList.remove("active-link");
-            }
-        });
-    }
+        // Si la position de défilement dépasse le sommet de la section et est en dessous du bas de la section
+        if (window.scrollY >= sectionTop - sectionHeight / 3) {
+            currentSection = section.getAttribute('id'); // Récupère l'ID de la section en cours
+        }
+    });
 
-    // Ajoutez un écouteur d'événement sur le défilement pour appeler la fonction scrollActive
-    window.addEventListener("scroll", scrollActive);
-
-    // Assurez-vous que la fonction scrollActive est appelée une fois au chargement de la page
-    scrollActive();
-
-
+    // Ajoute la classe active au lien correspondant à la section visible
+    navLinks.forEach(link => {
+        link.classList.remove('active-link'); // Supprime la classe active de tous les liens
+        if (link.getAttribute('href').includes(currentSection)) {
+            link.classList.add('active-link'); // Ajoute la classe active au lien en cours
+        }
+    });
 
     // Déclaration des variables pour le changement de thème
     const toggleSwitch = document.getElementById("toggle-switch");

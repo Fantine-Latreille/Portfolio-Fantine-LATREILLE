@@ -37,23 +37,23 @@ body {
 
 /* Conteneur du compte à rebours */
 #countdown-circle {
-    position: relative;
-    display: inline-block; /* Permet de contenir le cercle autour du chiffre */
-    width: 100px; /* Ajustez selon la taille souhaitée */
-    height: 100px; /* Ajustez selon la taille souhaitée */
-    border-radius: 50%; /* Rend le div en forme de cercle */
-    background-color: #f0f0f0; /* Couleur de fond du cercle */
+    position: fixed;
+    width: 80px;
+    height: 80px; 
+    background-color: #A8D4ED; 
+    border-radius: 50%; 
+    background-color: #f0f0f0; 
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 5px solid #0000FF; /* Couleur et largeur du bord du cercle */
+    border: 5px solid #0000FF; 
 }
 
 /* Chiffre du compte à rebours */
 #countdown-number {
-    font-size: 36px; /* Ajustez la taille du texte selon vos besoins */
-    color: #102E5B; /* Couleur du texte */
-    position: relative; /* Assure que le texte est bien positionné à l'intérieur du cercle */
+    font-size: 36px; 
+    color: #102E5B; 
+    position: relative; 
 }
 
 
