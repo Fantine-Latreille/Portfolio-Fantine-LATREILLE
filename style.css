@@ -33,33 +33,33 @@ body {
 }
 
 /* Position et style du cercle de décompte */
-
-
-/* Conteneur du compte à rebours */
 #countdown-circle {
     position: fixed;
+    bottom: 20px;
+    right: 20px;
     width: 80px;
-    height: 80px; 
-    background-color: #A8D4ED; 
-    border-radius: 50%; 
-    background-color: #f0f0f0; 
+    height: 80px;
+    background-color: #A8D4ED; /* Couleur par défaut */
+    border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border: 5px solid #0000FF; 
+    align-items: center;
+    color: #102E5B;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 1000; /* Pour être au-dessus des autres éléments */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s; /* Transition douce pour le changement de couleur */
 }
 
-/* Chiffre du compte à rebours */
+/* Style du texte à l'intérieur du cercle */
 #countdown-number {
-    font-size: 36px; 
-    color: #102E5B; 
-    position: relative; 
+    font-family: 'Poppins', sans-serif;
 }
-
 
 /* Style pour les trois dernières secondes */
 #countdown-circle.red {
-    background-color: #ff0000; 
+    background-color: #ff0000; /* Rouge pour les trois dernières secondes */
 }
 
 /*---dark mode---*/
@@ -109,27 +109,43 @@ nav {
     padding-top: 30px;
 }
 
-/* Style des liens de navigation */
 .nav-link {
     text-decoration: none;
-    color: #102E5B;
+    color: #102E5B !important;
     font-weight: 500;
-    padding: 10px 15px;
-    margin: 0 10px;
-    position: relative;
+    padding-inline: 15px;
+    margin-inline: 20px;
 }
 
-/* Trait bleu sous le lien actif */
-.nav-link.active-link::after {
-    content: '';
+.nav-link.active {
+    color: #A8D4ED !important;
+}
+
+.nav-menu-btn {
+    display: none;
+}
+
+.nav-menu-btn i {
+    font-size: 25px;
+    cursor: pointer;
+    color: var(--nav-icon);
+}
+
+.active-link{
+    position: relative;
+    color: var(--first-color);
+    transition: 0.3s;
+}
+
+.active-link::after{
+    content: "";
     position: absolute;
-    width: 100%;
-    height: 3px;
-    color: #102E5B;
-    background-color:#A8D4ED;
-    bottom: -5px; 
-    left: 0;
-    transition: background-color 0.3s ease;
+    left: 50%;
+    bottom: -15px;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 2px;
+    background: var(--first-color);
 }
 
 /*---Wrapper---*/
@@ -287,8 +303,8 @@ i {
     display: flex;
     margin-left: 5px;
     gap: 32px;
-    color: #102E5B; 
-    text-decoration: none; 
+    color: #102E5B; /* Couleur des icônes */
+    text-decoration: none; /* Retire le soulignement */
 
 
 }
@@ -311,7 +327,7 @@ i {
     height: 40px;
     border-radius: 50px;
     animation: iconSlide 5s infinite alternate;
-    transform: translate(75%, 75%) !important;
+    transform: translate(75%, 75%);
     background: transparent;
 }
 
@@ -421,7 +437,7 @@ i {
     color: #102E5B;
     margin-top: 0px;
     font-weight: 500;
-    transition: background-color 0.5s ease, color 0.5s ease; 
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transition pour le fond et la couleur du texte */
 }
 
 .Informations .About-me-btn:hover {
@@ -444,14 +460,14 @@ i {
 
 .logo-track {
     display: flex;
-    width: calc(250px * 8); 
-    animation: scroll 20s linear infinite; 
+    width: calc(250px * 8); /* Ajuste selon le nombre de logos et leur taille */
+    animation: scroll 20s linear infinite; /* Animation pour faire défiler */
 }
 
 .logo {
-    width: 70px; 
+    width: 70px; /* Ajuste la taille des logos */
     height: 70px;
-    margin: 0 15px; 
+    margin: 0 15px; /* Espacement entre les logos */
 }
 
 /* Animation du défilement */
@@ -460,7 +476,7 @@ i {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%); 
+        transform: translateX(-50%); /* Ajuste pour faire défiler exactement la moitié */
     }
 }
 
@@ -691,4 +707,27 @@ textarea {
 .btn:hover {
     background-color: #102E5B; /* Changement de couleur du fond au survol */
     color: #fff; /* Changement de couleur du texte au survol */
+}
+
+#welcome-message {
+    position: fixed; /* Permet de positionner le message par rapport à la fenêtre */
+    bottom: 110px; /* Place le message à 20px du bas de la fenêtre */
+    right: 20px; /* Place le message à 20px de la droite de la fenêtre */
+    background-color: #A8D4ED; /* Couleur de fond pour le message */
+    padding: 10px 20px;
+    border: 2px solid #102E5B; /* Bordure légère autour du message */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour le rendre visible */
+    z-index: 1000; /* Pour le rendre visible au-dessus des autres éléments */
+    display: flex; /* Pour aligner le texte et le bouton sur la même ligne */
+    align-items: center; /* Aligne verticalement le contenu au centre */
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #102E5B; /* Couleur de la croix */
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 10px; /* Espacement entre le texte et le bouton */
 }
