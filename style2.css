@@ -140,14 +140,15 @@ nav {
 .screenshots-container {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    margin: 0 20px;
 }
 
 .screenshot {
-    width: 100%;
+    width: 85%; 
     flex-shrink: 0;
-    max-height: 1000px;
-
-    object-fit: cover; /* Assure que les images s'ajustent bien */
+    height: auto; 
+    object-fit: cover; 
+    margin: 0% 7.5%;
 }
 
 .carousel-btn {
@@ -164,10 +165,12 @@ nav {
 
 .left-btn {
     left: 10px;
+    border-radius: 50px;
 }
 
 .right-btn {
     right: 10px;
+    border-radius: 50px;
 }
 
 /* Style pour le bouton Toggle Theme */
