@@ -40,34 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Element with ID 'toggle-switch' not found.");
     }
 
+    const modal = document.getElementById('modal');
+    const modalContainer = document.getElementById('modal-container');
+    const closeBtn = document.querySelector('.close-btn');
     const leftBtn = document.querySelector('.left-btn');
     const rightBtn = document.querySelector('.right-btn');
-    const screenshotsContainer = document.querySelector('.screenshots-container');
-    const screenshots = document.querySelectorAll('.screenshot');let currentIndex = 0;
-
-    function updateCarousel() {
-        const offset = -currentIndex * 100;
-        screenshotsContainer.style.transform = `translateX(${offset}%)`;
-    }
-
-    leftBtn.addEventListener('click', function() {
-        if (currentIndex > 0) {
-            currentIndex--;
-        } else {
-            currentIndex = screenshots.length - 1;
-        }
-        updateCarousel();
-    });
-
-    rightBtn.addEventListener('click', function() {
-        if (currentIndex < screenshots.length - 1) {
-            currentIndex++;
-        } else {
-            currentIndex = 0;
-        }
-        updateCarousel();
-    });
-
+    const carouselContainer = document.getElementById('modal-carousel');
 
     // Fonction pour ouvrir le modal
     window.openModal = (projectId) => {
@@ -172,4 +150,5 @@ updateActiveLink(); // Appel initial pour mettre à jour les liens au chargement
 function closeWelcomeMessage() {
     document.getElementById('welcome-message').style.display = 'none';
 }
+
 
