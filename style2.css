@@ -132,25 +132,34 @@ nav {
 
 /* Défilement photos */
 .carousel-container {
-    display: flex;
-    align-items: center;
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    overflow: hidden;
+}
+
+.screenshots-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.screenshot {
+    width: 100%;
+    flex-shrink: 0;
+    max-height: 1000px;
+
+    object-fit: cover; /* Assure que les images s'ajustent bien */
 }
 
 .carousel-btn {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
     z-index: 10;
-    border-radius: 50%;
-    font-size: 24px;
 }
 
 .left-btn {
@@ -159,24 +168,6 @@ nav {
 
 .right-btn {
     right: 10px;
-}
-
-/* Conteneur des images */
-.screenshots-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    white-space: nowrap;
-    gap: 10px;
-    padding: 10px 0;
-}
-
-/* Style pour chaque capture d'écran */
-.screenshot {
-    flex: 0 0 auto;
-    width: 200px; /* Ajusté pour une taille d'image plus appropriée */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Style pour le bouton Toggle Theme */
@@ -195,21 +186,24 @@ nav {
     background-color: #555;
 }
 
-/* Style pour le compte à rebours */
-#countdown-number {
-    text-align: center;
-    font-size: 48px;
-    margin-top: 20px;
-}
-
+/* Conteneur du compte à rebours */
 #countdown-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 5px solid #333;
-    margin: 20px auto;
+    position: fixed;
+    width: 80px;
+    height: 80px; 
+    background-color: #A8D4ED; 
+    border-radius: 50%; 
+    background-color: #f0f0f0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #0000FF; 
 }
 
-#countdown-circle.red {
-    border-color: red;
+/* Chiffre du compte à rebours */
+#countdown-number {
+    font-size: 36px; 
+    color: #102E5B; 
+    position: flex; 
+    display: flex;
 }

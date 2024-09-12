@@ -33,60 +33,36 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Element with ID 'toggle-switch' not found.");
     }
 
-    const modal = document.getElementById('modal');
-    const modalContainer = document.getElementById('modal-container');
-    const closeBtn = document.querySelector('.close-btn');
     const leftBtn = document.querySelector('.left-btn');
     const rightBtn = document.querySelector('.right-btn');
-    const carouselContainer = document.getElementById('modal-carousel');
+    const screenshotsContainer = document.querySelector('.screenshots-container');
+    const screenshots = document.querySelectorAll('.screenshot');
+    
+    let currentIndex = 0;
 
-    // Fonction pour ouvrir le modal
-    window.openModal = (projectId) => {
-        // Définir les images pour chaque projet
-        const projectImages = {
-            1: ["v6protect-1.png", "v6protect-2.png", "v6protect-3.png"], // Exemple d'images pour le projet 1
-            2: ["soan-1.png", "soan-2.png"], // Exemple d'images pour le projet 2
-            // Ajouter d'autres projets ici
-        };
-
-        // Charger les images dans le modal
-        const images = projectImages[projectId] || [];
-        carouselContainer.innerHTML = images.map(src => `<img src="${src}" alt="Image" class="screenshot">`).join('');
-
-        // Afficher le modal
-        modalContainer.style.display = 'block';
-    };
-
-    // Fonction pour fermer le modal
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modalContainer.style.display = 'none';
-        });
+    function updateCarousel() {
+        const offset = -currentIndex * 100;
+        screenshotsContainer.style.transform = `translateX(${offset}%)`;
     }
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modalContainer) {
-            modalContainer.style.display = 'none';
+    leftBtn.addEventListener('click', function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = screenshots.length - 1;
         }
+        updateCarousel();
     });
 
-    // Fonction de défilement horizontal
-    const scrollAmount = 300; // Ajuster la valeur selon les besoins
-    function scrollLeft() {
-        carouselContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    }
+    rightBtn.addEventListener('click', function() {
+        if (currentIndex < screenshots.length - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateCarousel();
+    });
 
-    function scrollRight() {
-        carouselContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-
-    if (leftBtn) {
-        leftBtn.addEventListener('click', scrollLeft);
-    }
-
-    if (rightBtn) {
-        rightBtn.addEventListener('click', scrollRight);
-    }
     
     // Compte à rebours
     const countdownElement = document.getElementById('countdown-number');
@@ -115,27 +91,3 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Countdown elements not found.");
     }
 });
-
-
-// Sélection de tous les liens de navigation
-const navLinks = document.querySelectorAll('.nav-link');
-
-function updateActiveLink() {
-    navLinks.forEach(link => {
-        const section = document.querySelector(link.getAttribute('href'));
-        if (section) {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                link.classList.add('active-link');
-            } else {
-                link.classList.remove('active-link');
-            }
-        }
-    });
-}
-
-window.addEventListener('scroll', updateActiveLink);
-updateActiveLink(); // Appel initial pour mettre à jour les liens au chargement
