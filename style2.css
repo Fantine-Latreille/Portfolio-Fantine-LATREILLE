@@ -138,6 +138,8 @@ nav {
     display: flex;
     transition: transform 0.5s ease-in-out;
     margin: 0 30px;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
 }
 
 .screenshot {
