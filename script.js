@@ -1,93 +1,132 @@
-// Ajuste la vitesse du défilement en changeant la durée de l'animation CSS si nécessaire.
-const track = document.querySelector(".logo-track");
+document.addEventListener('DOMContentLoaded', function () {
 
-// Répète les logos pour un défilement continu
-track.innerHTML += track.innerHTML;
+    const sections = document.querySelectorAll(".section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-const body = document.querySelector("body"),
-      toggleSwitch = document.getElementById("toggle-switch");
+    function scrollActive() {
+        const scrollY = window.scrollY + 50; // Ajustement si nécessaire
 
-// Ajouter un écouteur d'événements pour le bouton de changement de thème
-toggleSwitch.addEventListener("click", () => {
-    body.classList.toggle("dark");
-});
+        sections.forEach((current) => {
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - 50; // Ajustez la valeur de décalage si nécessaire
+            const sectionId = current.getAttribute("id");
 
-// Vérifiez si ScrollReveal est bien chargé
-if (typeof ScrollReveal !== 'undefined') {
-    // Configuration ScrollReveal pour des animations depuis le haut
-    const sr = ScrollReveal({
-        origin: "top",
-        distance: "80px",
-        duration: 2000,
-        reset: true,
-    });
+            // Si la section est visible dans la fenêtre d'affichage
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                // Ajouter la classe 'active-link' au lien correspondant
+                document.querySelector(".nav-menu a[href*=" + sectionId + "]")?.classList.add("active-link");
+            } else {
+                // Supprimer la classe 'active-link' pour les liens non actifs
+                document.querySelector(".nav-menu a[href*=" + sectionId + "]")?.classList.remove("active-link");
+            }
+        });
+    }
 
-    // Révèle des éléments avec les classes appropriées
-    sr.reveal(".featured-name", { delay: 100 });
-    sr.reveal(".Informations", { delay: 200 });
-    sr.reveal(".text-btn", { delay: 200 });
-    sr.reveal(".social_icons", { delay: 200 });
-    sr.reveal(".featured-image", { delay: 320 });
-    sr.reveal(".project-box", { interval: 200 });
-    sr.reveal(".top-header", {});
+    // Ajoutez un écouteur d'événement sur le défilement pour appeler la fonction scrollActive
+    window.addEventListener("scroll", scrollActive);
 
-    // Configuration ScrollReveal pour des animations depuis la gauche
-    const srLeft = ScrollReveal({
-        origin: "left",
-        distance: "80px",
-        duration: 2000,
-        reset: true,
-    });
+    // Assurez-vous que la fonction scrollActive est appelée une fois au chargement de la page
+    scrollActive();
 
-    srLeft.reveal(".about-info", { delay: 100 });
-    srLeft.reveal(".contact-info", { delay: 100 });
 
-    // Configuration ScrollReveal pour des animations depuis la droite
-    const srRight = ScrollReveal({
-        origin: "right",  // Corrected from "left" to "right" for right reveal
-        distance: "80px",
-        duration: 2000,
-        reset: true,
-    });
 
-    srRight.reveal(".skill", { delay: 100 });
-    srRight.reveal(".skill-box", { delay: 100 });
-} else {
-    console.error('ScrollReveal is not loaded.');
-}
+    // Déclaration des variables pour le changement de thème
+    const toggleSwitch = document.getElementById("toggle-switch");
+    if (toggleSwitch) {
+        toggleSwitch.addEventListener("click", () => {
+            document.body.classList.toggle("dark");
+        });
+    } else {
+        console.error("Element with ID 'toggle-switch' not found.");
+    }
 
-/*---Liens activés---*/
+    const modal = document.getElementById('modal');
+    const modalContainer = document.getElementById('modal-container');
+    const closeBtn = document.querySelector('.close-btn');
+    const leftBtn = document.querySelector('.left-btn');
+    const rightBtn = document.querySelector('.right-btn');
+    const carouselContainer = document.getElementById('modal-carousel');
 
-const sections = document.querySelectorll(".section [id] ");
+    // Fonction pour ouvrir le modal
+    window.openModal = (projectId) => {
+        // Définir les images pour chaque projet
+        const projectImages = {
+            1: ["v6protect-1.png", "v6protect-2.png", "v6protect-3.png"], // Exemple d'images pour le projet 1
+            2: ["soan-1.png", "soan-2.png"], // Exemple d'images pour le projet 2
+            // Ajouter d'autres projets ici
+        };
 
-function scrollActive() {
-    const scrollY = window.scrollY;
+        // Charger les images dans le modal
+        const images = projectImages[projectId] || [];
+        carouselContainer.innerHTML = images.map(src => `<img src="${src}" alt="Image" class="screenshot">`).join('');
 
-    sections.forEach((current) => {
+        // Afficher le modal
+        modalContainer.style.display = 'block';
+    };
 
-        const selectionHeight = current.offsetHeight,
+    // Fonction pour fermer le modal
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modalContainer.style.display = 'none';
+        });
+    }
 
-            sectionTop = curent.offsetTop - 50,
-            ection = current.getAttribute("id");
-
-        if (scrollY > sectionTop && scrollY <= sectionHeight) {
-            document
-                .querySelector(".nav-menu a[href*=" + sectionId + "]")
-                .classicList.add("active-link");
-        } else {
-            document
-                .querySelector(".nav-menu a[href*=" + sectionId + "]")
-                .classicList.remove("active-link");
+    window.addEventListener('click', (event) => {
+        if (event.target === modalContainer) {
+            modalContainer.style.display = 'none';
         }
     });
-}
 
-window.addEventListener("scroll", scrollActive);
+    // Fonction de défilement horizontal
+    const scrollAmount = 300; // Ajuster la valeur selon les besoins
+    function scrollLeft() {
+        carouselContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
 
-// Sélectionne tous les liens de navigation
+    function scrollRight() {
+        carouselContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+
+    if (leftBtn) {
+        leftBtn.addEventListener('click', scrollLeft);
+    }
+
+    if (rightBtn) {
+        rightBtn.addEventListener('click', scrollRight);
+    }
+    
+    // Compte à rebours
+    const countdownElement = document.getElementById('countdown-number');
+    const countdownCircle = document.getElementById('countdown-circle');
+    if (countdownElement && countdownCircle) {
+        let timeLeft = 30;
+
+        function updateCountdown() {
+            countdownElement.textContent = timeLeft;
+
+            if (timeLeft <= 3) {
+                countdownCircle.classList.add('red');
+            }
+
+            if (timeLeft > 0) {
+                timeLeft--;
+            } else {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = "0";
+            }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Appel initial pour afficher la première valeur
+    } else {
+        console.error("Countdown elements not found.");
+    }
+});
+
+
+// Sélection de tous les liens de navigation
 const navLinks = document.querySelectorAll('.nav-link');
 
-// Fonction pour mettre à jour la classe active des liens
 function updateActiveLink() {
     navLinks.forEach(link => {
         const section = document.querySelector(link.getAttribute('href'));
@@ -96,7 +135,6 @@ function updateActiveLink() {
             const sectionHeight = section.offsetHeight;
             const scrollPosition = window.scrollY + window.innerHeight / 2;
 
-            // Vérifie si la section est dans la vue
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 link.classList.add('active-link');
             } else {
@@ -106,69 +144,5 @@ function updateActiveLink() {
     });
 }
 
-// Écoute les événements de défilement pour mettre à jour les liens actifs
 window.addEventListener('scroll', updateActiveLink);
-
-// Appelle la fonction une première fois pour mettre à jour au chargement
-updateActiveLink();
-
-console.log("JavaScript est bien relié !");
-
-/* ----------------JAVASCRIPT Pour les screens qui défilent----------------*/
-const container = document.querySelector('.screenshots-container');
-let scrollAmount = 0;
-
-// Fonction pour défiler vers la gauche
-function scrollLeft() {
-    container.scrollBy({
-        top: 0,
-        left: -200, // Ajustez ce nombre selon la largeur de défilement souhaitée
-        behavior: 'smooth'
-    });
-}
-
-// Fonction pour défiler vers la droite
-function scrollRight() {
-    container.scrollBy({
-        top: 0,
-        left: 200, // Ajustez ce nombre selon la largeur de défilement souhaitée
-        behavior: 'smooth'
-    });
-}
-
-
-// -------------------- COMPTE À REBOURS
-
-// Sélectionne l'élément qui affiche le compte à rebours
-const countdownElement = document.getElementById('countdown-number');
-const countdownCircle = document.getElementById('countdown-circle');
-
-// Temps de départ en secondes
-let timeLeft = 30;
-
-// Fonction pour mettre à jour le compte à rebours
-function updateCountdown() {
-    countdownElement.textContent = timeLeft; // Affiche le temps restant
-
-    // Change la couleur du cercle pour les 3 dernières secondes
-    if (timeLeft <= 3) {
-        countdownCircle.classList.add('red'); // Ajoute la classe rouge
-    }
-
-    // Vérifie si le temps est écoulé
-    if (timeLeft > 0) {
-        timeLeft--; // Diminue le temps restant
-    } else {
-        clearInterval(countdownInterval); // Arrête le compte à rebours
-        countdownElement.textContent = "0"; // Fixe à zéro une fois terminé
-    }
-}
-
-// Exécute la fonction updateCountdown toutes les secondes
-const countdownInterval = setInterval(updateCountdown, 1000);
-
-// Appelle immédiatement la fonction pour afficher la première valeur
-updateCountdown();
-
-
-
+updateActiveLink(); // Appel initial pour mettre à jour les liens au chargement

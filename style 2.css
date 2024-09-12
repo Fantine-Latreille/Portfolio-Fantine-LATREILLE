@@ -3,25 +3,33 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600");
 
 :root {
-    --body-color : rgba(250,250,250);
-    --color-white : rgba(250,250,250);
-    --text-color-second : rgba(33,33,33);
-    --first-color : rgba(168,212,237);
+    --body-color: rgba(250, 250, 250);
+    --color-white: rgba(250, 250, 250);
+    --text-color-second: rgba(33, 33, 33);
+    --first-color: rgba(168, 212, 237);
     --first-shadow: #F0F0F0;
 
-    --box-color : #fff;
-    --nav-color : #fff;
-    --nav-icon : #212121;
-    --logo-color : #212121;
+    --box-color: #fff;
+    --nav-color: #fff;
+    --nav-icon: #212121;
+    --logo-color: #212121;
 
-    --text-color : #212121;
-
-    --icon-color : #212121;
-    --mode-color : #ccc;
+    --text-color: #212121;
+    --icon-color: #212121;
+    --mode-color: #ccc;
 }
 
+/* Thème clair */
 body {
     background: var(--body-color);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+}
+
+/* Thème sombre */
+body.dark {
+    background: #333;
+    color: #f0f0f0;
 }
 
 /* Style pour le bouton "Retour" */
@@ -45,7 +53,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% - 40px); /* Ajuste pour inclure le bouton */
+    width: calc(100% - 40px);
 }
 
 /* Style pour le titre central */
@@ -58,19 +66,79 @@ nav {
     font-family: "Poppins", sans-serif;
 }
 
-/*Defilement photos*/
+/* Bouton pour ouvrir le modal */
+.open-modal-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-/* Conteneur principal du carrousel */
+.open-modal-btn:hover {
+    background-color: #0056b3;
+}
+
+.modal-container {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+}
+
+/* Style pour le bouton de fermeture */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #bbb;
+}
+
+/* Défilement photos */
 .carousel-container {
     display: flex;
     align-items: center;
     position: relative;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    overflow: hidden;
 }
 
-/* Boutons de navigation gauche et droite */
 .carousel-btn {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
@@ -86,26 +154,62 @@ nav {
 }
 
 .left-btn {
-    left: 5px;
-    cursor: pointer;
+    left: 10px;
 }
 
 .right-btn {
-    right: 5px;
-    cursor: pointer;
-
+    right: 10px;
 }
 
 /* Conteneur des images */
 .screenshots-container {
     display: flex;
-    transition: transform 0.5s ease;
-    gap: 50px; /* Espace entre les images */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 10px 0;
 }
 
 /* Style pour chaque capture d'écran */
 .screenshot {
-    max-width: 1000px;
+    flex: 0 0 auto;
+    width: 200px; /* Ajusté pour une taille d'image plus appropriée */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style pour le bouton Toggle Theme */
+#toggle-switch {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#toggle-switch:hover {
+    background-color: #555;
+}
+
+/* Style pour le compte à rebours */
+#countdown-number {
+    text-align: center;
+    font-size: 48px;
+    margin-top: 20px;
+}
+
+#countdown-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #333;
+    margin: 20px auto;
+}
+
+#countdown-circle.red {
+    border-color: red;
 }
