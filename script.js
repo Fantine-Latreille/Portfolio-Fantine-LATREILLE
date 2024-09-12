@@ -1,27 +1,34 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    let sections = document.querySelectorAll('section'); // Sélectionne toutes les sections
-    let navLinks = document.querySelectorAll('.nav-link'); // Sélectionne tous les liens de navigation
+    const sections = document.querySelectorAll(".section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
 
-    let currentSection = '';
+    function scrollActive() {
+        const scrollY = window.scrollY + 50; // Ajustement si nécessaire
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
+        sections.forEach((current) => {
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - 50; // Ajustez la valeur de décalage si nécessaire
+            const sectionId = current.getAttribute("id");
 
-        // Si la position de défilement dépasse le sommet de la section et est en dessous du bas de la section
-        if (window.scrollY >= sectionTop - sectionHeight / 3) {
-            currentSection = section.getAttribute('id'); // Récupère l'ID de la section en cours
-        }
-    });
+            // Si la section est visible dans la fenêtre d'affichage
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                // Ajouter la classe 'active-link' au lien correspondant
+                document.querySelector(".nav-menu a[href*=" + sectionId + "]")?.classList.add("active-link");
+            } else {
+                // Supprimer la classe 'active-link' pour les liens non actifs
+                document.querySelector(".nav-menu a[href*=" + sectionId + "]")?.classList.remove("active-link");
+            }
+        });
+    }
 
-    // Ajoute la classe active au lien correspondant à la section visible
-    navLinks.forEach(link => {
-        link.classList.remove('active-link'); // Supprime la classe active de tous les liens
-        if (link.getAttribute('href').includes(currentSection)) {
-            link.classList.add('active-link'); // Ajoute la classe active au lien en cours
-        }
-    });
+    // Ajoutez un écouteur d'événement sur le défilement pour appeler la fonction scrollActive
+    window.addEventListener("scroll", scrollActive);
+
+    // Assurez-vous que la fonction scrollActive est appelée une fois au chargement de la page
+    scrollActive();
+
+
 
     // Déclaration des variables pour le changement de thème
     const toggleSwitch = document.getElementById("toggle-switch");
@@ -36,9 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const leftBtn = document.querySelector('.left-btn');
     const rightBtn = document.querySelector('.right-btn');
     const screenshotsContainer = document.querySelector('.screenshots-container');
-    const screenshots = document.querySelectorAll('.screenshot');
-    
-    let currentIndex = 0;
+    const screenshots = document.querySelectorAll('.screenshot');let currentIndex = 0;
 
     function updateCarousel() {
         const offset = -currentIndex * 100;
@@ -63,6 +68,54 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCarousel();
     });
 
+
+    // Fonction pour ouvrir le modal
+    window.openModal = (projectId) => {
+        // Définir les images pour chaque projet
+        const projectImages = {
+            1: ["v6protect-1.png", "v6protect-2.png", "v6protect-3.png"], // Exemple d'images pour le projet 1
+            2: ["soan-1.png", "soan-2.png"], // Exemple d'images pour le projet 2
+            // Ajouter d'autres projets ici
+        };
+
+        // Charger les images dans le modal
+        const images = projectImages[projectId] || [];
+        carouselContainer.innerHTML = images.map(src => `<img src="${src}" alt="Image" class="screenshot">`).join('');
+
+        // Afficher le modal
+        modalContainer.style.display = 'block';
+    };
+
+    // Fonction pour fermer le modal
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modalContainer.style.display = 'none';
+        });
+    }
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modalContainer) {
+            modalContainer.style.display = 'none';
+        }
+    });
+
+    // Fonction de défilement horizontal
+    const scrollAmount = 300; // Ajuster la valeur selon les besoins
+    function scrollLeft() {
+        carouselContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+
+    function scrollRight() {
+        carouselContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+
+    if (leftBtn) {
+        leftBtn.addEventListener('click', scrollLeft);
+    }
+
+    if (rightBtn) {
+        rightBtn.addEventListener('click', scrollRight);
+    }
     
     // Compte à rebours
     const countdownElement = document.getElementById('countdown-number');
@@ -91,3 +144,32 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Countdown elements not found.");
     }
 });
+
+
+// Sélection de tous les liens de navigation
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateActiveLink() {
+    navLinks.forEach(link => {
+        const section = document.querySelector(link.getAttribute('href'));
+        if (section) {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                link.classList.add('active-link');
+            } else {
+                link.classList.remove('active-link');
+            }
+        }
+    });
+}
+
+window.addEventListener('scroll', updateActiveLink);
+updateActiveLink(); // Appel initial pour mettre à jour les liens au chargement
+
+function closeWelcomeMessage() {
+    document.getElementById('welcome-message').style.display = 'none';
+}
+
