@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const rightBtn = document.querySelector('.right-btn');
     const screenshotsContainer = document.querySelector('.screenshots-container');
     const screenshots = document.querySelectorAll('.screenshot');
-    
+
     let currentIndex = 0;
 
     function updateCarousel() {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         screenshotsContainer.style.transform = `translateX(${offset}%)`;
     }
 
-    leftBtn.addEventListener('click', function() {
+    leftBtn.addEventListener('click', function () {
         if (currentIndex > 0) {
             currentIndex--;
         } else {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCarousel();
     });
 
-    rightBtn.addEventListener('click', function() {
+    rightBtn.addEventListener('click', function () {
         if (currentIndex < screenshots.length - 1) {
             currentIndex++;
         } else {
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCarousel();
     });
 
-    
+
     // Compte à rebours
     const countdownElement = document.getElementById('countdown-number');
     const countdownCircle = document.getElementById('countdown-circle');
@@ -128,4 +128,29 @@ function closeWelcomeMessage() {
 }
 
 
+function openModal(projectId) {
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modal-image");
+    const modalTitle = document.getElementById("modal-title");
+
+    // Affiche la modale
+    modal.style.display = "block";
+
+    switch (projectId) {
+        case 1:
+            modalImg.src = "Couverture-v6Protect-1.png";
+            modalTitle.textContent = "Alternance";
+            break;
+        case 2:
+            modalImg.src = "Couverture-Soan-1.png";
+            modalTitle.textContent = "Stage chez Soan";
+            break;
+
+    }
+}
+
+const closeModalBtn = document.getElementsByClassName("close")[0];
+closeModalBtn.onclick = function () {
+    document.getElementById("myModal").style.display = "none";
+}
 
