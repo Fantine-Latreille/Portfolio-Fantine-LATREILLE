@@ -137,9 +137,7 @@ nav {
 .screenshots-container {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    margin: 0 30px;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
+    margin: 0 20px;
 }
 
 .screenshot {
@@ -154,22 +152,14 @@ nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #102E5B;
+    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
     cursor: pointer;
-    width: 50px; /* Ajuste la largeur */
-    height: 50px; /* Ajuste la hauteur pour correspondre à la largeur */
-    border-radius: 50%; /* Rend le bouton parfaitement rond */
-    font-size: 30px; /* Ajuste la taille de la flèche */
-    display: flex; /* Utilisé pour centrer la flèche */
-    align-items: center; /* Centre verticalement */
-    justify-content: center; /* Centre horizontalement */
-    padding: 0; /* Enlève le padding pour ne pas affecter le centrage */
+    padding: 10px;
+    z-index: 10;
 }
 
-
-/* Boutons gauches et droits */
 .left-btn {
     left: 10px;
     border-radius: 50px;
@@ -179,6 +169,7 @@ nav {
     right: 10px;
     border-radius: 50px;
 }
+
 
 /* Style pour le bouton Toggle Theme */
 #toggle-switch {
