@@ -127,8 +127,8 @@ function closeWelcomeMessage() {
 
 // Counter
 document.addEventListener("DOMContentLoaded", () => {
-    const instagramFollowers = 6200; // Abonnés Instagram
-    const tiktokFollowers = 135000; // Abonnés TikTok
+    const instagramFollowers = 11 700; // Abonnés Instagram
+    const tiktokFollowers = 138 000; // Abonnés TikTok
   
     const instagramCount = document.getElementById("instagramCount");
     const tiktokCount = document.getElementById("tiktokCount");
